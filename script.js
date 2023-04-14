@@ -1,15 +1,26 @@
-// main.js
+const uploadForm = document.getElementById('upload-form');
+const videoFileInput = document.getElementById('video-file');
+const videoContainer = document.getElementById('video-container');
 
-// 購読フォームのsubmitイベントのリスナー
-document.getElementById('subscribe-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-  const subscriberName = document.getElementById('subscriber-name').value;
-  subscribe(subscriberName);
+uploadForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const videoFile = videoFileInput.files[0];
+    if (!videoFile) {
+        alert('動画を選択してください。');
+        return;
+    }
+
+    // 動画ファイルをアップロードする処理を実装する
+
+    // アップロードが完了したら、動画を表示する
+    const videoItem = document.createElement('div');
+    videoItem.className = 'video-item';
+
+    const video = document.createElement('video');
+    video.src = URL.createObjectURL(videoFile);
+    video.controls = true;
+
+    videoItem.appendChild(video);
+    videoContainer.appendChild(videoItem);
 });
-
-// 購読する関数
-function subscribe(name) {
-  // サーバーに購読リクエストを送信する処理を記述
-  // サーバー側で購読情報を保存し、新着メッセージがあると通知する処理を実装
-  // メッセージの表示領域に新着メッセージを表示する処理を実装
-}
