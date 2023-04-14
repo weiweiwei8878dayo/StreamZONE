@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>配信サービス</title>
-  <link rel="stylesheet" href="styles.css">
+    <title>動画共有サイト</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <h1>配信サービス</h1>
-  <div id="messages-container">
-    <!-- メッセージの表示領域 -->
-  </div>
-  <form id="subscribe-form">
-    <label for="subscriber-name">名前:</label>
-    <input type="text" id="subscriber-name" required>
-    <button type="submit">購読する</button>
-  </form>
-  <script src="main.js"></script>
+    <header>
+        <h1>動画共有サイト</h1>
+    </header>
+    <main>
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" id="video-file" accept="video/*">
+            <input type="submit" value="動画をアップロード">
+        </form>
+        <div id="video-container"></div>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
