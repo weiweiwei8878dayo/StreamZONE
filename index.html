@@ -17,5 +17,35 @@
         <div id="video-container"></div>
     </main>
     <script src="script.js"></script>
+    <script>
+        // アップロードフォームのイベントリスナー
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // フォームのデフォルトの送信を防止
+
+            var videoFile = document.getElementById('video-file').files[0]; // 選択された動画ファイルを取得
+
+            // FormDataを使用してフォームデータを作成
+            var formData = new FormData();
+            formData.append('video', videoFile);
+
+            // サーバーに動画ファイルをアップロード
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'upload.php', true); // サーバーサイドの処理を行うPHPファイルのURLを指定
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // アップロード成功時の処理
+                    var videoContainer = document.getElementById('video-container');
+                    var videoElement = document.createElement('video');
+                    videoElement.src = xhr.responseText;
+                    videoElement.controls = true;
+                    videoContainer.appendChild(videoElement);
+                } else {
+                    // アップロード失敗時の処理
+                    console.error('動画のアップロードに失敗しました。');
+                }
+            };
+            xhr.send(formData);
+        });
+    </script>
 </body>
 </html>
