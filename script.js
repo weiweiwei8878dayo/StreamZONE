@@ -11,16 +11,35 @@ uploadForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    // 動画ファイルをアップロードする処理を実装する
+    // FormDataを使用してフォームデータを作成
+    const formData = new FormData();
+    formData.append('file', videoFile);
 
-    // アップロードが完了したら、動画を表示する
-    const videoItem = document.createElement('div');
-    videoItem.className = 'video-item';
+    try {
+        // fetchを使用してAPIエンドポイントに動画ファイルをアップロード
+        const response = await fetch('/api/upload', {
+            method: 'POST',
+            body: formData
+        });
 
-    const video = document.createElement('video');
-    video.src = URL.createObjectURL(videoFile);
-    video.controls = true;
+        if (response.ok) {
+            // アップロードが成功したら、動画を表示する
+            const videoItem = document.createElement('div');
+            videoItem.className = 'video-item';
 
-    videoItem.appendChild(video);
-    videoContainer.appendChild(videoItem);
+            const video = document.createElement('video');
+            video.src = URL.createObjectURL(videoFile);
+            video.controls = true;
+
+            videoItem.appendChild(video);
+            videoContainer.appendChild(videoItem);
+
+            alert('動画のアップロードが完了しました。');
+        } else {
+            alert('動画のアップロードに失敗しました。');
+        }
+    } catch (error) {
+        console.error(error);
+        alert('エラーが発生しました。');
+    }
 });
